@@ -5,14 +5,14 @@ namespace App\Http\Controllers\Api;
 use App\DTOs\CategoryData;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use Illuminate\Http\Request;
+use Knuckles\Scribe\Attributes\BodyParam;
+use Knuckles\Scribe\Attributes\Subgroup;
 
 /**
  * @group V1
  * First version of the API
- * @subgroup Category
- * @subgroupDescription APIs for managing categories
  */
+#[Subgroup('Category', 'APIs for managing categories')]
 class CategoryController extends Controller
 {
     /**
@@ -26,9 +26,11 @@ class CategoryController extends Controller
     /**
      * Storing
      */
-    public function store(Request $request)
+    #[BodyParam('name')]
+    #[BodyParam('description', required: false)]
+    public function store(CategoryData $category)
     {
-        //
+        return $category->storing();
     }
 
     /**
@@ -36,22 +38,25 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        return CategoryData::from($category);
     }
 
     /**
      * Updating
      */
-    public function update(Request $request, string $id)
+    #[BodyParam('name')]
+    #[BodyParam('description', required: false)]
+    public function update(CategoryData $categoryData, Category $category)
     {
-        //
+        return $categoryData->updating($category);
     }
 
     /**
      * Deleting
      */
-    public function destroy(string $id)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return response()->json(null, 204);
     }
 }

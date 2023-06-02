@@ -16,4 +16,11 @@ class Category extends Model
      * @var string
      */
     protected $primaryKey = 'ulid';
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array<string>|bool
+     */
+    protected $guarded = [];
 }
