@@ -3,10 +3,11 @@
 namespace App\DTOs;
 
 use App\Models\Category;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Spatie\LaravelData\Data;
-use Illuminate\Support\Carbon;
 
+/** @typescript */
 class CategoryData extends Data
 {
     public function __construct(
