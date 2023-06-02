@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  php:
+  laravel:
     image: ramageek/bcrud:8.2-laravel
     container_name: laravel-best-practice-api_php
     volumes:
