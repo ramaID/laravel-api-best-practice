@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\DTOs\CategoryData;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Queries\SearchCategoryQuery;
 use Knuckles\Scribe\Attributes\BodyParam;
 use Knuckles\Scribe\Attributes\Subgroup;
 
@@ -18,9 +19,9 @@ class CategoryController extends Controller
     /**
      * Listing
      */
-    public function index()
+    public function index(SearchCategoryQuery $query)
     {
-        return CategoryData::collection(Category::query()->paginate(15));
+        return CategoryData::collection($query->paginate());
     }
 
     /**
