@@ -21,7 +21,7 @@ class CategoryController extends Controller
      */
     public function index(SearchCategoryQuery $query)
     {
-        return CategoryData::collection($query->paginate());
+        return CategoryData::collection($query->jsonPaginate());
     }
 
     /**
