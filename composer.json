@@ -16,7 +16,8 @@
         "spatie/laravel-data": "^3.5",
         "spatie/laravel-json-api-paginate": "^1.13",
         "spatie/laravel-query-builder": "^5.2",
-        "spatie/laravel-typescript-transformer": "^2.3"
+        "spatie/laravel-typescript-transformer": "^2.3",
+        "timacdonald/json-api": "1.0.0-beta.4"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

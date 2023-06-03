@@ -6,22 +6,29 @@ use App\DTOs\CategoryData;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Queries\SearchCategoryQuery;
+use App\Resources\CategoryResource;
 use Knuckles\Scribe\Attributes\BodyParam;
+use Knuckles\Scribe\Attributes\QueryParam;
 use Knuckles\Scribe\Attributes\Subgroup;
 
 /**
  * @group V1
  * First version of the API
  */
-#[Subgroup('Category', 'APIs for managing categories')]
+#[Subgroup('Category', 'APIs for managing categories. List columns by which you can sort and filter: name, slug, description')]
 class CategoryController extends Controller
 {
     /**
      * Listing
      */
+    #[QueryParam('filter[search]', 'string', 'Searching all column (fuzzy search / <strong>LIKE %query%</strong>)', required: false)]
+    #[QueryParam('filter[name]', 'string', required: false)]
+    #[QueryParam('filter[slug]', 'string', required: false)]
+    #[QueryParam('filter[description]', 'string', required: false)]
+    #[QueryParam('sort', 'string', 'sorting by column, add - in front for descending', false, '-name')]
     public function index(SearchCategoryQuery $query)
     {
-        return CategoryData::collection($query->jsonPaginate());
+        return CategoryResource::collection($query->jsonPaginate());
     }
 
     /**
@@ -31,7 +38,8 @@ class CategoryController extends Controller
     #[BodyParam('description', required: false)]
     public function store(CategoryData $category)
     {
-        return $category->storing();
+        $category->storing();
+        return CategoryResource::make($category);
     }
 
     /**
@@ -39,7 +47,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return CategoryData::from($category);
+        return CategoryResource::make($category);
     }
 
     /**
